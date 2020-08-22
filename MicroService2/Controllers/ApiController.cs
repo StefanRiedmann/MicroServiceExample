@@ -12,10 +12,16 @@ namespace MicroService2.Controllers
         {
         }
 
-        [HttpGet("[action]")]
-        public string Test()
+        [HttpPost("[action]")]
+        public IActionResult Webhook([FromBody] string message)
         {
-            return "Welcome Microservice2";
+            if(message == null || !message.Contains("{{firstname}}") || !message.Contains("{{lastname}}"))
+            {
+                return BadRequest("Invalid message");
+            }
+            var result = message.Replace("{{firstname}}", "Stefan");
+            result = result.Replace("{{lastname}}", "Riedmann");
+            return Ok(result);
         }
     }
 }

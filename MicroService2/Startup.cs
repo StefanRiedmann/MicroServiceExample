@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -15,9 +16,12 @@ namespace Microservice2
 {
     public class Startup
     {
+        private string _secret;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _secret = Configuration.GetValue<string>("XApiKey");
         }
 
         public IConfiguration Configuration { get; }
@@ -36,11 +40,22 @@ namespace Microservice2
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.Use(async (context, next) =>
+            {
+                if(!context.Request.Headers.TryGetValue("x-api-key", out var values) 
+                   || !values.Any(value => value == _secret))
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return;
+                }
+                await next();
+            });
 
             app.UseEndpoints(endpoints =>
             {

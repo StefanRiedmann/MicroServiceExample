@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MicroService1.Models;
 using MicroService1.Services;
@@ -26,11 +27,26 @@ namespace MicroService1.Controllers
         
 
         [HttpPost("[action]")]
-        public async Task<string> PostMessage([FromBody] string message)
+        public async Task<IActionResult> PostMessage([FromBody] string message)
         {
             var ms2Config = this.dbService.Get();
-            var response = await ms2Service.SendMessage(ms2Config, message);
-            return response;
+            try
+            {
+                var response = await ms2Service.SendMessage(ms2Config, "Hello, {{firstname}} {{lastname}}. Thanks for applying at BOTfriends.");
+                return Ok(response);
+            }
+            catch(UnauthorizedAccessException)
+            {
+                return Unauthorized();
+            }
+            catch(ApplicationException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch(Exception)
+            {
+                return BadRequest("Unexpected");
+            }
         }
     }
 }
