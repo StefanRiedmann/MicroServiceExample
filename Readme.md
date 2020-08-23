@@ -23,9 +23,13 @@ Frame component including
 - Text input (send)
 - Errors are being shown as simple browser alerts
 ### [ConfigurationComponent.ts](/Frontend/src/app/components/configuration/)
-
+- Reads the existing configuration from MicroService1
+- Allows to change and save the configuration
+### Screenshots
+![Configuration](frontend_configuration.jpg)
+![Chat](frontend_chat.jpg)
 ## Microservices
-**The two Microservices are .NET Core API's
+**The two Microservices are simple .NET Core API's**
 ### [MicroService1](/MicroService1/)
 - _ApiController_ has endpoints to read/write configuration, and send chat messages
 - _DatabaseService_ creates db and collection in MongoDb if necessary, and offers simple read/write operations
@@ -51,10 +55,11 @@ Just use the community edition with Mongo Shell. _Microservice1_ needs to be con
 - Go to _Configuration_: Endpoint="http://localhost:6000/api/webhook" - Secret="mylittlesecret" - Save
 - Go to _Chat_ - Enter Message - Hit Enter
 
-## DEBUG with VisualStudio Code
+## DEBUG with Visual Studio Code
 - Launch Microservice1
 - Launch Microservice2
-- Launch Frontend
+- /Frontend/npm run start
+- Frontend could be debugged from VSCode, but for simplicity I use the browser integrated debugger
 
 ## TESTS
 **For a more complete example, tests should be written**
@@ -75,7 +80,7 @@ Just use the community edition with Mongo Shell. _Microservice1_ needs to be con
 This example is working locally, running the frontend with 'ng serve' - which is just a debug server. To complete this is example for deployment, consider the following points
 - Configure 'npm run build' to copy the build output to Microservice1/wwwroot
 - Create endpoint in Microservice1 to load the Angular SPA application (index.html)
-- Create docker containers out of the Microservices
+- Create two docker containers out of the Microservices
 - Deploy Microservices to a docker environment (or Kubernetes) and configure the MongoDb for Microservice1
 
 # CLOSING
