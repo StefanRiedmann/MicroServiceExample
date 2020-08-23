@@ -1,0 +1,22 @@
+<div class="chat">
+    <div class="messagelist">
+        <div class="chatmessage" 
+            *ngFor="let msg of messages"
+            [ngClass]="{'left' : msg.origin=='bot', 'right': msg.origin=='user'}">
+                
+            <div class="bot" *ngIf="msg.origin == 'bot'">
+                <div class="bubble">BOT</div>
+                <div class="msg">{{msg.message}}</div>
+            </div>
+            <div class="user" *ngIf="msg.origin == 'user'">
+                <div class="msg">{{msg.message}}</div>
+                <div class="bubble">USER</div>
+            </div>
+        </div>
+    </div>
+    <div class="separator"></div>
+    <div class="message">
+        <input type="text" #msg [(ngModel)]="currentMsg" (keyup.enter)="sendMessage()">
+        <button [disabled]="busy" [ngClass]="{'disabled': busy}" (click)="sendMessage()">Send</button>
+    </div>
+</div>

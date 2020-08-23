@@ -1,0 +1,10 @@
+<div class="config">
+    <span>Webhook Url</span>
+    <input type="text" [(ngModel)]="url">
+    <span>Webhook Secret</span>
+    <input type="text" [(ngModel)]="secret">
+    <div>
+        <button (click)="saveConfig()">SAVE</button>
+        <span *ngIf="busy">...BUSY...</span>
+    </div>
+</div>

@@ -35,6 +35,10 @@ namespace MicroService1.Services
                     var answer = await response.Content.ReadAsStringAsync();
                     return answer;
                 }
+                catch(UnauthorizedAccessException)
+                {
+                    throw;
+                }
                 catch(ApplicationException)
                 {
                     throw;

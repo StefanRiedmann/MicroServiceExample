@@ -1,0 +1,18 @@
+<div class="app">
+  <div class="toolbar" role="banner">
+    <img src="https://www.ciclosoftware.com/wp-content/uploads/2017/03/icono.png"/>
+    <span>Hello BotFriends</span>  
+  </div>
+  <div class="content">
+    <div class="sidemenu">
+      <button [ngClass]="{'active': currentpage=='config'}" (click)="currentpage='config'">Configuration</button>
+      <button [ngClass]="{'active': currentpage=='chat'}" (click)="currentpage='chat'">Chat</button>
+    </div>
+    <div class="currentpage">
+      <app-configuration *ngIf="currentpage=='config'"></app-configuration>
+      <app-chat *ngIf="currentpage=='chat'"></app-chat>
+
+
+    </div>
+  </div>
+</div>
