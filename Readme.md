@@ -9,8 +9,8 @@
 7. The frontend displays the response as a chat message from the counterpart (Bot)
 
 # ARCHITECTURE
-## Frontend - Angular9
-**The frontend basically consists of 1 service and 3 components**
+## Frontend
+**The frontend is an Angular SPA and basically consists of 1 service and 3 components**
 ### [ApiService.ts](/Frontend/src/app/servcies/)
 Implements http endpoints to connect to Microservice1.
 ### [AppComponent.ts](/Frontend/src/app/)
@@ -62,16 +62,16 @@ Just use the community edition with Mongo Shell. _Microservice1_ needs to be con
 - Frontend could be debugged from VSCode, but for simplicity I use the browser integrated debugger
 
 ## TESTS
-**For a more complete example, tests should be written**
-**UnitTests**
+For a more complete example, tests should be written
+### UnitTests
 - Frontend - unit tests for the frontend components and the service functions
 - MS1 - unit tests for the Controller (mocking DatabaseService and Ms2Service)
 - MS2 - unit test ApiController for the message response logic
 
-**IntegrationTests**
+### IntegrationTests
 - Microservice1 - integration tests for the DatabaseService (read/write to MongoDb)
 
-**E2E Tests**
+### E2E Tests
 - E2E tests should be written using Cypress or Protractor to test the Angular application
 - Test to configure MicroService2
 - Test to send chat messages
